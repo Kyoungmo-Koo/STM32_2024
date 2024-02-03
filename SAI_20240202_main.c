@@ -25,7 +25,6 @@
 #include <stdint.h>
 
 #define MAX_POS 65535
-
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
 
@@ -146,9 +145,13 @@ void HAL_UART_TxCpltCallback(UART_HandleTypeDef *huart){
 	}
 }
 void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart){
+	count = count + 1;
 	if(transmitFlag == 10 & buf[0] == '@'){
 		SAI_TransmitReceive(txData, 10000);
 		transmitFlag = 0;
+	}
+	if(count == 10){
+	LED_Toggle();
 	}
 }
 
@@ -194,7 +197,7 @@ int main(void)
   MX_SAI1_Init();
   MX_USART1_UART_Init();
   /* USER CODE BEGIN 2 */
-  GenerateStepPositionData(30, txData, 1000);
+  GenerateStepPositionData(6, txData, 10000);
   HAL_UART_Receive_DMA(&huart1, &buf[0], 1);
   //SAI_TransmitReceive(txData, 1000);
   //HAL_UART_Receive_DMA(&huart1, txData2, 500 * sizeof(uint32_t));
@@ -294,7 +297,7 @@ void PeriphCommonClock_Config(void)
   PeriphClkInit.Sai1ClockSelection = RCC_SAI1CLKSOURCE_PLLSAI1;
   PeriphClkInit.PLLSAI1.PLLSAI1Source = RCC_PLLSOURCE_HSI;
   PeriphClkInit.PLLSAI1.PLLSAI1M = 1;
-  PeriphClkInit.PLLSAI1.PLLSAI1N = 21;
+  PeriphClkInit.PLLSAI1.PLLSAI1N = 18;
   PeriphClkInit.PLLSAI1.PLLSAI1P = RCC_PLLP_DIV7;
   PeriphClkInit.PLLSAI1.PLLSAI1Q = RCC_PLLQ_DIV2;
   PeriphClkInit.PLLSAI1.PLLSAI1R = RCC_PLLR_DIV2;
@@ -396,7 +399,7 @@ static void MX_USART1_UART_Init(void)
 
   /* USER CODE END USART1_Init 1 */
   huart1.Instance = USART1;
-  huart1.Init.BaudRate = 4000000;
+  huart1.Init.BaudRate = 5000000;
   huart1.Init.WordLength = UART_WORDLENGTH_8B;
   huart1.Init.StopBits = UART_STOPBITS_1;
   huart1.Init.Parity = UART_PARITY_NONE;
