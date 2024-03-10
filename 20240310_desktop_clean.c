@@ -217,7 +217,10 @@ int test(int argc, char** argv)
         else if (RxByte == 3) {
             status = SPI_Write(handle, &tx_buffer[2 * NUM_OF_POSITIONS], 2 * NUM_OF_POSITIONS, ptransferCount, options);
         }
-        status2 = ReadFile(hComm, &RxByte, 1, &bytesRead, NULL);
+         
+        if(i < COUNT - 1){
+        status2 = ReadFile(hComm, &RxByte, 1, &bytesRead, NULL);}
+        
         Write_File(fp, rx_buffer);
         printf("%d \n", RxByte);
     }
