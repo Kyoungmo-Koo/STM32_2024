@@ -158,6 +158,7 @@ void HAL_SAI_TxHalfCpltCallback(SAI_HandleTypeDef *hsai){
 		HAL_SAI_DMAStop(&hsai_BlockB2);
 		state = 0;
 		HAL_UART_Receive(&huart2, &StartByte, 1, HAL_MAX_DELAY);
+		rxData[2 * NUM_OF_BYTES_PER_CHUNK] = 0;
 		state = 1;
 		toggled = 0;
 	}
