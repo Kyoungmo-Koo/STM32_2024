@@ -8,12 +8,14 @@
 //radial = 2
 //stop = ESC
 int state = 0;
+int count = 0;
+int COUNT = 30;
 
 int main() {
     // Enable non-blocking mode for keyboard input
     _setmode(_fileno(stdin), _O_BINARY);
 
-    while (true) {
+    while(1) {
         // Check if a key is pressed
         if (_kbhit()) {
             // Get the character without blocking
@@ -32,8 +34,14 @@ int main() {
             else if (ch == 50)
                 state = 2;
         }
+        if (count == COUNT)
+            break;
         Sleep(1000);
         std::cout << "State: " << state << std::endl;
+        std::cout << "count: " << count << std::endl;
+        if (state !=  0) {
+            count = count + 1;
+        }
     }
 
 
