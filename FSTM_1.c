@@ -6,7 +6,7 @@
 //idle = 0
 //raster = 1
 //radial = 2
-//stop = 3
+//stop = ESC
 int state = 0;
 
 int main() {
@@ -25,9 +25,15 @@ int main() {
             // If the ESC key is pressed, break out of the loop
             if (ch == 27) // ASCII code for ESC key
                 break;
+            else if (ch == 48)
+                state = 0;
+            else if (ch == 49)
+                state = 1;
+            else if (ch == 50)
+                state = 2;
         }
         Sleep(1000);
-        printf("hi");
+        std::cout << "State: " << state << std::endl;
     }
 
 
