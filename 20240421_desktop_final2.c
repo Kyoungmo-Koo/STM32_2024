@@ -324,7 +324,7 @@ int test(int argc, char** argv)
                 //fprintf(fp, "y:%d x:%d ,", y, x);
                 fprintf(fp, "%d,%d,", x, y);
             }
-            if (count % 2 == 0) {
+            if (count % 2 == 1) {
                 fprintf(fp, "\n");
             }
             printf("%d \n", RxByte);
